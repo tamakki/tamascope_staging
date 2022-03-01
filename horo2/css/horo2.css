@@ -18,8 +18,16 @@ header {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
+
+header .return {
+    margin-left: auto;
+}
+
+header div, header button {
+    margin-left: 1em;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -30,6 +38,15 @@ h1, h2, h3, h4 {
 
 h1 {
     display: inline-block;
+}
+
+button {
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 1em;
+    color: gray;
+    font-weight: bold;
+    margin: 0.2em;
 }
 
 .main_content {
@@ -386,11 +403,17 @@ footer {
 }
 
 #body_setting .category {
-    margin: 0 2em;
+    margin: 0;
+    margin-right: 2em;
+    margin-bottom: 1em;
 }
 
 #body_setting label {
     white-space: nowrap;
+}
+
+#obe_setting table {
+    margin: auto;
 }
 
 .dialog_wrapper {
@@ -436,6 +459,10 @@ footer {
     display: inline-block;
 }
 
+#save_setting_dialog input {
+    width: calc(100% - 4em);
+}
+
 #close_seve_setting {
     border: none;
     font-size: 1.2em;
@@ -467,11 +494,6 @@ footer {
     padding: 0.1em;
 }
 
-.setting_item_wrapper:hover {
-    background-color: #66f;
-    color: #fff;
-}
-
 .setting_item {
     cursor: pointer;
     flex: 1;
@@ -493,9 +515,8 @@ footer {
 
 @media only screen and (max-device-width: 480px) {
     
-    .modal a.close-modal[class*="icon-"] { 
-        width: 60px;
-        height: 60px;
+    .modal a.close-modal { 
+        transform: scale(2);
     }
     button, select {
         font-size: 12pt;

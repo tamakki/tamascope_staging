@@ -1115,7 +1115,6 @@ $("#btn_save_setting").on("click", () => {
 
 
 $("#show_load_setting").on("click", () => {
-    $("#load_setting_dialog").modal();
     const settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
     if(settings && settings.saved != null && Object.keys(settings.saved).length > 0) {
         let keys = Object.keys(settings.saved);
@@ -1124,6 +1123,8 @@ $("#show_load_setting").on("click", () => {
             let div = createSettingItem(keys[i]);
             $("#load_setting_list").append(div);
         }
+
+    $("#load_setting_dialog").modal();
     } else {
         alert("保存された設定がありません");
     }
