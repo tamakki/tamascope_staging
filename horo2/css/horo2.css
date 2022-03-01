@@ -492,6 +492,7 @@ footer {
     justify-content: center;
     margin: 0.4em 0;
     padding: 0.1em;
+    align-items: center;
 }
 
 .setting_item {
