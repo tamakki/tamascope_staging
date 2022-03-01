@@ -34,7 +34,7 @@ function makeInput(key,value,tag) {
 }
 
 function makeInputArea(title, tag) {
-    const main = $('<section>').addClass('category').appendTo('#inputs');
+    const main = $('<section>').addClass('category').appendTo('#body_setting__inputs');
     const h2 = $('<h2>').appendTo(main);
     const label = $('<label>').appendTo(h2);
     $('<input type="checkbox">').addClass('all').val(tag).appendTo(label);
@@ -79,7 +79,6 @@ function initValue() {
     $('.all:checked').each(function(key, elm) {
         targets_all.push($(elm).val());
     });
-    const setting = SettingUtil.getSetting();
     setting.targets = targets;
     setting['targets-all'] = targets_all;
     SettingUtil.saveSetting(setting);

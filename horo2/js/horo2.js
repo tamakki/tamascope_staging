@@ -4,6 +4,7 @@ var aspects;
 var magnify = 1.6;
 const settingVersion = 3;
 var setting_open = true;
+let setting = SettingUtil.getSetting();
 
 // 初期設定
 $(function () {
@@ -110,7 +111,6 @@ $(function () {
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
 
     // 自動計算
-    const setting = SettingUtil.getSetting();
     if(bodies && setting){
         const keys = Object.keys(bodies);
         if(keys.length < setting.targets.length) {
@@ -129,11 +129,8 @@ $(function () {
 
 /** 初期表示用設定 */
 function initSetting() {
-    let setting = SettingUtil.getSetting();
-    if(setting.version !== settingVersion) {
-        SettingUtil.removeSetting();
-        setting = SettingUtil.getSetting();
-    }
+    SettingUtil.removeSetting();
+    setting = SettingUtil.getSetting();
 
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
@@ -149,7 +146,6 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    const setting = SettingUtil.getSetting();
     setting['birth-date'] = $('#birth-date').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
@@ -184,10 +180,10 @@ function changePrefecture() {
 
 /** 天体計算 */
 function calc() {
-    const setting = SettingUtil.getSetting();
-    const targets = setting.targets;
-    targets.push('sun');
-    targets.push('moon')
+    let targets = [];
+    targets = targets.concat(setting.targets);
+    if(targets.indexOf('sun') === -1) targets.push('sun');
+    if(targets.indexOf('moon') === -1) targets.push('moon');
     if(validate(setting)) {
         $.LoadingOverlay('show');
         $.ajax({
@@ -246,7 +242,6 @@ function validate(setting) {
 function draw() {
     changeSetting();
     if(bodies) {
-        const setting = SettingUtil.getSetting();
         // 描画を削除
         $('#horoscope').empty();   
 
@@ -653,7 +648,6 @@ function getAspectTable (aspects){
 function makeBodyList() {
     const table = $('#body-table');
     table.empty();
-    const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
         const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
@@ -1076,3 +1070,26 @@ const prefecture_list = [
     {"name":"鹿児島県","latitude":31.56028,"longitude":130.55806},
     {"name":"沖縄県","latitude":26.2125,"longitude":127.68111},
 ];
+
+/** 天体設定ボタンクリックイベント */
+$("#open_body_setting").on("click", () => {
+    $("#body_setting__inputs").empty();
+    makeSetting();
+    initValue();
+    $("#body_setting")[0].showModal();
+});
+
+$("#close_body_setting").on("click", () => {
+    $("#body_setting")[0].close();
+});
+
+/** オーブ設定ボタンクリックイベント */
+$("#open_obe_setting").on("click", () => {
+    $("#aspect_setting__inputs").empty();
+    init_obe_setting();
+    $("#obe_setting")[0].showModal();
+});
+
+$("#close_obe_setting").on("click", () => {
+    $("#obe_setting")[0].close();
+});

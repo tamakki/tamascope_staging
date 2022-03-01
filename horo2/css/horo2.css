@@ -24,7 +24,7 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-.main {
+main {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
@@ -357,4 +357,90 @@ footer {
     border-radius: 0.4em;
     font-weight: 600;
     border: none;
+}
+
+.inputs {
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.icon {
+    height: 1em;
+    width: 1em;
+    margin: 0 1em 0 0.5em;
+    position: relative;
+    top: 0.1em;
+}
+
+.category {
+    margin: 0 2em;
+}
+
+label {
+    white-space: nowrap;
+}
+
+h1 {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+footer {
+    font-size: 0.8em;
+    padding: 1em;
+}
+
+.dialog_wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dialog__header {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog__header button {
+    width: fit-content;
+}
+ 
+#body_setting {
+    width: 80vw;
+    height: 100vh;
+}
+
+#body_setting__inputs {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+@media only screen and (max-device-width: 480px) {
+
+    #body_setting {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    body {
+        font-size: 4vw;
+    }
+    .category {
+        margin: 0 1em;
+    }
+    span {
+        margin-bottom: 0.5em;
+    }
+    input[type="checkbox"] {
+        width: 25pt;
+        height: 25pt;
+    }
+    .category{
+        width: 100%;
+    }
 }
