@@ -519,7 +519,8 @@ footer {
         transform: scale(2);
     }
     header h1, header button {
-        margin-left: 0.5em;
+        margin: 0;
+        margin-right: 0.5em;
     }
     button, select {
         font-size: 12pt;
