@@ -24,8 +24,6 @@ SettingUtil.saveSetting = function (setting, setting_name) {
     }
     settings.saved[setting_name] = setting;
     localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
-
-    alert("設定を保存しました");
 }
 
 SettingUtil.removeSetting = function () {

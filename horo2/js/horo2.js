@@ -1077,11 +1077,19 @@ $("#open_body_setting").on("click", () => {
     $("#body_setting").modal();
 });
 
+$("#body_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
+});
+
 /** オーブ設定ボタンクリックイベント */
 $("#open_obe_setting").on("click", () => {
     $("#aspect_setting__inputs").empty();
     init_obe_setting();
     $("#obe_setting").modal();
+});
+
+$("#obe_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
 });
 
 /** 設定保存モーダル */

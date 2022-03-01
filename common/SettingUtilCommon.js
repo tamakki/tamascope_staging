@@ -80,7 +80,6 @@ function initValue() {
     });
     setting.targets = targets;
     setting['targets-all'] = targets_all;
-    SettingUtil.saveSetting(setting);
 }
 
 
