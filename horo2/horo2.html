@@ -23,12 +23,14 @@
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script type="module" src="../common/CommonUtil.js?ver=3"></script>
 </head>
 
 <body>
     <article class="wrapper">
-        <main class="main">
+        <main class="main_content">
             <header>
                 <h1>小惑星沢山ホロスコープ</h1>
                 <button id="open_body_setting">天体設定</button>
@@ -165,42 +167,39 @@
             </script>
             <script src="../common/dom-to-image.js" async></script>
         </div>
-        <dialog id="body_setting">
+        <div id="body_setting" class="modal">
             <div class="dialog_wrapper">
                 <div class="dialog__header">
-                    <h2>天体設定</h2><button id="close_body_setting">閉じる</button>
+                    <h2>天体設定</h2>
                 </div>
                 <div id="body_setting__inputs">
                 </div>
             </div>
-        </dialog>
-        <dialog id="obe_setting">
+        </div>
+        <div id="obe_setting" class="modal">
             <div class="dialog_wrapper">
                 <div class="dialog__header">
                     <h2>オーブ設定</h2>
-                    <button id="close_obe_setting">閉じる</button>
                 </div>
                 <div id="aspect_setting__inputs">
                 </div>
             </div>
-        </dialog>
-        <dialog id="save_setting_dialog">
+        </div>
+        <div id="save_setting_dialog" class="modal">
             <div>
                 <h2>保存名</h2>
-                <button id="close_seve_setting">×</button>
             </div>
             <input type="text" id="setting_name">
             <button id="btn_save_setting">保存</button><br>
-        </dialog>
-        <dialog id="load_setting_dialog">
+        </div>
+        <div id="load_setting_dialog" class="modal">
             <div>
                 <h2>設定一覧</h2>
-                <button id="close_load_setting">×</button>
             </div>
             <div id="load_setting_list">
 
             </div>
-        </dialog>
+        </div>
         <footer>
             <!-- admax -->
             <script src="https://adm.shinobi.jp/s/5c8d51baf2d24a2ee2195cb917fec71e"></script>

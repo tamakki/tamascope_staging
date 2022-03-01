@@ -51,7 +51,6 @@ function makeInputArea(title, tag) {
  * 設定を読み込んで反映する
  */
 function initValue() {
-    const setting = SettingUtil.getSetting();
     $.each(setting.targets, function(key, value) {
         $('input[value="' + value + '"]').prop('checked', true);
     });

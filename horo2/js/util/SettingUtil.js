@@ -7,7 +7,6 @@ SettingUtil.getSetting = function () {
 
 /** 設定情報の保存 */
 SettingUtil.saveSetting = function (setting, setting_name) {
-    console.log(localStorage.getItem(SettingUtil.setting_key));
     let settings =  JSON.parse(localStorage.getItem(SettingUtil.setting_key));
 
     if(!settings) {
@@ -25,6 +24,8 @@ SettingUtil.saveSetting = function (setting, setting_name) {
     }
     settings.saved[setting_name] = setting;
     localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
+
+    alert("設定を保存しました");
 }
 
 SettingUtil.removeSetting = function () {

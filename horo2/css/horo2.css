@@ -15,6 +15,7 @@ body {
 }
 header {
     padding: 1em;
+    width: 100%;
 }
 .wrapper {
     display: flex;
@@ -24,7 +25,11 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-main {
+h1 {
+    display: inline-block;
+}
+
+.main_content {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
@@ -363,13 +368,13 @@ footer {
     border: none;
 }
 
-.inputs {
+#body_setting .inputs {
     padding: 1em;
     display: flex;
     flex-wrap: wrap;
 }
 
-.icon {
+#body_setting .icon {
     height: 1em;
     width: 1em;
     margin: 0 1em 0 0.5em;
@@ -377,26 +382,12 @@ footer {
     top: 0.1em;
 }
 
-.category {
+#body_setting .category {
     margin: 0 2em;
 }
 
-label {
+#body_setting label {
     white-space: nowrap;
-}
-
-h1 {
-    display: inline-block;
-    margin-right: 1em;
-}
-
-footer {
-    font-size: 0.8em;
-    padding: 1em;
-}
-
-dialog {
-    padding: 0.5em;
 }
 
 .dialog_wrapper {
@@ -417,8 +408,13 @@ dialog {
 }
  
 #body_setting {
+    max-width: 80vw;
     width: 80vw;
-    height: 100vh;
+    height: 80vh;
+}
+
+#obe_setting {
+    max-width: 80vw;
 }
 
 #body_setting__inputs {
@@ -464,7 +460,7 @@ dialog {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 0.2em 0;
+    margin: 0.4em 0;
     padding: 0.1em;
 }
 
@@ -482,26 +478,35 @@ dialog {
     font-size: 1em;
     float: right;
     border: none;
-    border-radius: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    padding: 0;
+    border-radius: 0.75em;
     background-color: red;
+    color: black;
     cursor: pointer;
 }
 
 @media only screen and (max-device-width: 480px) {
     #body_setting {
-        width: 100vw;
-        height: 100vh;
+        width: 80vw;
+        height: 80vh;
     }
-    body {
-        font-size: 4vw;
+    #body_setting, #obe_setting, #save_setting_dialog, #load_setting_dialog {
+        font-size: 3vw;
+        width: fit-content;
+    }
+    #body_setting input, #obe_setting input, #save_setting_dialog input, #load_setting_dialog input{
+        font-size: 3vw;
     }
     .category {
         margin: 0 1em;
     }
-    span {
+    #body_setting span {
         margin-bottom: 0.5em;
     }
-    input[type="checkbox"] {
+    #body_setting input[type="checkbox"] {
         width: 25pt;
         height: 25pt;
     }

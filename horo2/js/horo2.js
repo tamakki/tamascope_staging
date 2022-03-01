@@ -1067,55 +1067,47 @@ const prefecture_list = [
     {"name":"沖縄県","latitude":26.2125,"longitude":127.68111},
 ];
 
+
 /** 天体設定ボタンクリックイベント */
 $("#open_body_setting").on("click", () => {
     $("#body_setting__inputs").empty();
+
     makeSetting();
     initValue();
-    $("#body_setting")[0].showModal();
-});
-
-/** 天体設定ボタン閉じる */
-$("#close_body_setting").on("click", () => {
-    $("#body_setting")[0].close();
-    calc();
+    $("#body_setting").modal();
 });
 
 /** オーブ設定ボタンクリックイベント */
 $("#open_obe_setting").on("click", () => {
     $("#aspect_setting__inputs").empty();
     init_obe_setting();
-    $("#obe_setting")[0].showModal();
+    $("#obe_setting").modal();
 });
 
-/** オーブ設定ボタン閉じる */
-$("#close_obe_setting").on("click", () => {
-    $("#obe_setting")[0].close();
-    calc();
-});
-
+/** 設定保存モーダル */
 $("#show_save_setting").on("click", () => {
     $("#setting_name").val($("#name").val());
-    $("#save_setting_dialog")[0].showModal();
+    $("#save_setting_dialog").modal();
+    $("#setting_name").focus();
 });
 
 $("#btn_save_setting").on("click", () => {
-    if($("#setting_name").val()) {
-        SettingUtil.saveSetting(setting, $("#setting_name").val());
-        $("#save_setting_dialog")[0].close();
-        $("#setting_name").val("");
-    } else {
-        alert("設定名を入力してください");
-    }
+    $("#setting_name").blur();
+    setTimeout(() => {
+
+        if($("#setting_name").val()) {
+            SettingUtil.saveSetting(setting, $("#setting_name").val());
+            $.modal.close();
+            $("#setting_name").val("");
+        } else {
+            alert("設定名を入力してください");
+        }
+    }, 200);
 });
 
-$("#close_seve_setting").on("click", () => {
-    $("#setting_name").val("");
-    $("#save_setting_dialog")[0].close();
-});
 
 $("#show_load_setting").on("click", () => {
-    $("#load_setting_dialog")[0].showModal();
+    $("#load_setting_dialog").modal();
     const settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
     if(settings && settings.saved != null && Object.keys(settings.saved).length > 0) {
         let keys = Object.keys(settings.saved);
@@ -1129,10 +1121,6 @@ $("#show_load_setting").on("click", () => {
     }
 });
 
-$("#close_load_setting").on("click", () => {
-    $("#load_setting_dialog")[0].close();
-});
-
 $(document).on("click", ".setting_item", () => {
     let elm = $(event.target);
     let target = elm.data("name");
@@ -1141,7 +1129,7 @@ $(document).on("click", ".setting_item", () => {
         setting = new Setting(JSON.stringify(settings.saved[target]));
         $("#name").val(target);
         initSetting();
-        $("#load_setting_dialog")[0].close();
+        $.modal.close();
         calc();
     }
 });
