@@ -33,7 +33,9 @@
                 <h1>小惑星沢山ホロスコープ</h1>
                 <button id="open_body_setting">天体設定</button>
                 <button id="open_obe_setting">オーブ設定</button>
-                <a href="../horo_index.html">戻る</a>
+                <button id="show_save_setting">設定を保存する</button>
+                <button id="show_load_setting">設定を読み込む</button>
+                <a href="../horo_index.html" class="return">戻る</a>
             </header>
             <!-- パラメータ設定-->
             <section id="params" class="params">
@@ -180,6 +182,23 @@
                 </div>
                 <div id="aspect_setting__inputs">
                 </div>
+            </div>
+        </dialog>
+        <dialog id="save_setting_dialog">
+            <div>
+                <h2>保存名</h2>
+                <button id="close_seve_setting">×</button>
+            </div>
+            <input type="text" id="setting_name">
+            <button id="btn_save_setting">保存</button><br>
+        </dialog>
+        <dialog id="load_setting_dialog">
+            <div>
+                <h2>設定一覧</h2>
+                <button id="close_load_setting">×</button>
+            </div>
+            <div id="load_setting_list">
+
             </div>
         </dialog>
         <footer>

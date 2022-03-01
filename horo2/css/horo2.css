@@ -33,6 +33,10 @@ main {
     margin: 0 auto;
 }
 
+.return {
+    float: right;
+}
+
 .main header {
     width: 100%;
 }
@@ -391,6 +395,10 @@ footer {
     padding: 1em;
 }
 
+dialog {
+    padding: 0.5em;
+}
+
 .dialog_wrapper {
     display: flex;
     flex-direction: column;
@@ -420,13 +428,70 @@ footer {
     overflow-y: scroll;
 }
 
-@media only screen and (max-device-width: 480px) {
+#save_setting_dialog {
+    border-radius: 0.5em;
+}
 
+#save_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#close_seve_setting {
+    border: none;
+    font-size: 1.2em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+#load_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#close_load_setting {
+    border: none;
+    font-size: 1.5em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+
+.setting_item_wrapper {
+    min-width: 15em;
+    border: 1px solid #000;
+    border-radius: 0.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.2em 0;
+    padding: 0.1em;
+}
+
+.setting_item_wrapper:hover {
+    background-color: #66f;
+    color: #fff;
+}
+
+.setting_item {
+    cursor: pointer;
+    flex: 1;
+}
+
+.delete_setting {
+    font-size: 1em;
+    float: right;
+    border: none;
+    border-radius: 1em;
+    background-color: red;
+    cursor: pointer;
+}
+
+@media only screen and (max-device-width: 480px) {
     #body_setting {
         width: 100vw;
         height: 100vh;
     }
-
     body {
         font-size: 4vw;
     }

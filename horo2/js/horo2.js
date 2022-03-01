@@ -4,7 +4,7 @@ var aspects;
 var magnify = 1.6;
 const settingVersion = 3;
 var setting_open = true;
-let setting = SettingUtil.getSetting();
+let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
@@ -74,7 +74,7 @@ $(function () {
     });
     $('#btn_remove_setting').click(function() {
         if(confirm('設定を初期化します。よろしいですか？')){
-            SettingUtil.removeSetting();
+            setting = new Setting(JSON.stringify(SettingUtil.default_setting));
             initSetting();
             $('#horoscope').empty();
             $('#house-list').empty();
@@ -129,9 +129,6 @@ $(function () {
 
 /** 初期表示用設定 */
 function initSetting() {
-    SettingUtil.removeSetting();
-    setting = SettingUtil.getSetting();
-
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
         if(elm) {
@@ -162,7 +159,6 @@ function changeSetting() {
     setting['disp-loose'] = $('#disp-loose').prop('checked');
     setting['orb-tight'] = parseFloat($('#orb-tight').val());
     setting['orb-loose'] = parseFloat($('#orb-loose').val());
-    SettingUtil.saveSetting(setting);
 }
 
 /** 県選択時イベント */
@@ -612,7 +608,7 @@ function getHouse(setting) {
 function getAspectTable (aspects){
     // 情報をもとにテーブルを作成
     let aspect_table = document.createElement("table");
-    for(let i = 0; i < SettingUtil.getSetting().targets.length; i++) {
+    for(let i = 0; i < setting.targets.length; i++) {
         let colgroup = document.createElement('col');
         colgroup.span = 1;
         aspect_table.append(colgroup);
@@ -1079,8 +1075,10 @@ $("#open_body_setting").on("click", () => {
     $("#body_setting")[0].showModal();
 });
 
+/** 天体設定ボタン閉じる */
 $("#close_body_setting").on("click", () => {
     $("#body_setting")[0].close();
+    calc();
 });
 
 /** オーブ設定ボタンクリックイベント */
@@ -1090,6 +1088,87 @@ $("#open_obe_setting").on("click", () => {
     $("#obe_setting")[0].showModal();
 });
 
+/** オーブ設定ボタン閉じる */
 $("#close_obe_setting").on("click", () => {
     $("#obe_setting")[0].close();
+    calc();
 });
+
+$("#show_save_setting").on("click", () => {
+    $("#setting_name").val($("#name").val());
+    $("#save_setting_dialog")[0].showModal();
+});
+
+$("#btn_save_setting").on("click", () => {
+    if($("#setting_name").val()) {
+        SettingUtil.saveSetting(setting, $("#setting_name").val());
+        $("#save_setting_dialog")[0].close();
+        $("#setting_name").val("");
+    } else {
+        alert("設定名を入力してください");
+    }
+});
+
+$("#close_seve_setting").on("click", () => {
+    $("#setting_name").val("");
+    $("#save_setting_dialog")[0].close();
+});
+
+$("#show_load_setting").on("click", () => {
+    $("#load_setting_dialog")[0].showModal();
+    const settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings && settings.saved != null && Object.keys(settings.saved).length > 0) {
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+    } else {
+        alert("保存された設定がありません");
+    }
+});
+
+$("#close_load_setting").on("click", () => {
+    $("#load_setting_dialog")[0].close();
+});
+
+$(document).on("click", ".setting_item", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+    let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings.saved[target]) {
+        setting = new Setting(JSON.stringify(settings.saved[target]));
+        $("#name").val(target);
+        initSetting();
+        $("#load_setting_dialog")[0].close();
+        calc();
+    }
+});
+$(document).on("click", ".delete_setting", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+
+    if(confirm(target + " を削除してよろしいですか？")) {
+        let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+        delete settings.saved[target];
+        localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+    }
+});
+
+/**
+ * 読み込み用の設定一覧のアイテムを作成する
+ * @param {*} key 
+ */
+function createSettingItem(key) {
+    let div = $("<div>").addClass("setting_item_wrapper");
+    $("<span>").text(key).attr("data-name", key).addClass("setting_item").appendTo(div);
+    $("<button>").text("━").attr("data-name", key).addClass("delete_setting").appendTo(div);
+    return div;
+}
