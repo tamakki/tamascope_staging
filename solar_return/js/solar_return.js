@@ -286,14 +286,16 @@ function draw() {
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
         }
-
+        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
+            bodies['ASC'] = {longitude: caspdata.ASC.angle, longitude_speed: 0};
+            bodies['MC'] = {longitude: caspdata.MC.angle, longitude_speed: 0};
+        } else {
+            delete bodies['ASC'];
+            delete bodies['MC'];
+        }
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator();
         const elements = [];
-        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
-            elements.push({name:'ASC', angle: caspdata.ASC.angle});
-            elements.push({name:'MC', angle: caspdata.MC.angle});
-        }
         $.each(bodies, function(key, value) {
             if(value){
                 elements.push({name: key, angle: value.longitude});
@@ -301,11 +303,6 @@ function draw() {
         });
         aspect_calculator.setTargets(elements);
         aspects = aspect_calculator.getAspects();
-        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
-            bodies['ASC'] = {longitude: caspdata.ASC.angle, longitude_speed: 0};
-            bodies['MC'] = {longitude: caspdata.MC.angle, longitude_speed: 0};
-        }
-        
 
         // viewBOX設定
         const VIEW_BOX_WIDTH = 800;
@@ -462,8 +459,6 @@ function draw() {
         const hitArea = 3.5 * magnify;
         var layouted = [];
         var angles = [];
-        setting.targets.unshift('ASC');
-        setting.targets.unshift('MC');
         for(let i = 0; i < setting.targets.length; i++) {
             const target = setting.targets[i];
             const elm = bodies[target];
@@ -554,11 +549,15 @@ function draw() {
                 deg1 += 360;
             }
             let deg = base - (caspdata.casps[i].angle + (deg1 - deg2) * 0.5);
-            let text = new RadialTextBuilder(deg,INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify, i+1)
+            let r = INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify;
+            r = Math.max(r, 100);
+            let fontSize = r / magnify * Math.PI/9;
+            fontSize = Math.max(fontSize, 16);
+            let text = new RadialTextBuilder(deg, r, i+1)
             .set('class','symbol')
             .setStroke("#aaa")
             .setFill("#aaa")
-            .set('font-size', Math.min((INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10) * Math.PI/9, 16 * magnify))
+            .set('font-size', 16 * magnify)
             .build();
             sign.append(text);
         }
@@ -685,8 +684,9 @@ function makeBodyList() {
     table.empty();
     const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = bodies[key];
         if(data === null || data === undefined){

@@ -253,6 +253,25 @@ function draw() {
             base = (caspdata.ASC.angle + 180) % 360;
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
+        } else {
+            ASC = caspdata.casps[0].angle;
+            MC = caspdata.casps[9].angle;
+        }
+        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
+            if(setting.targets.indexOf('ASC') !== -1) {
+                bodies['ASC'] ={
+                    longitude: ASC
+                };
+            }
+
+            if(setting.targets.indexOf('MC') !== -1) {
+                bodies['MC'] = {
+                    longitude: MC
+                };
+            }
+        } else {
+            delete bodies['ASC'];
+            delete bodies['MC'];
         }
 
         // アスペクトを取得
@@ -519,15 +538,19 @@ function draw() {
                 deg1 += 360;
             }
             let deg = base - (caspdata.casps[i].angle + (deg1 - deg2) * 0.5);
-            let text = new RadialTextBuilder(deg,INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify, i+1)
+            let r = INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify;
+            r = Math.max(r, 100);
+            let fontSize = r / magnify * Math.PI/9;
+            fontSize = Math.max(fontSize, 16);
+            let text = new RadialTextBuilder(deg, r, i+1)
             .set('class','symbol')
             .setStroke("#aaa")
             .setFill("#aaa")
-            .set('font-size', Math.min((INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10) * Math.PI/9, 16 * magnify))
+            .set('font-size', 16 * magnify)
             .build();
             sign.append(text);
         }
-    
+
         // アスペクト
         aspects.forEach(function(elm){
             elm.value.forEach(function(data){
@@ -645,8 +668,9 @@ function makeBodyList() {
     const table = $('#body-table');
     table.empty();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = bodies[key];
         if(data === null || data === undefined){

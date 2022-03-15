@@ -155,6 +155,16 @@ function makePerson() {
 
 SettingUtil.body_list = {
     // 主要天体
+    'ASC': {
+        'name': "ASC",
+        'tag': 'main',
+        'svg': '../svg/ASC.svg'
+    },
+    'MC': {
+        'name': "MC",
+        'tag': 'main',
+        'svg': '../svg/MC.svg'
+    },
     'sun': {
         'name': '太陽',
         'tag': 'main',
@@ -212,7 +222,7 @@ SettingUtil.body_list = {
         'svg': '../svg/mean_node.svg'
     },
     'true_node': {
-        'name': 'ドラゴンヘッド（トルゥー）',
+        'name': 'ドラゴンヘッド（トゥルー）',
         'tag': 'lunar',
         'svg': '../svg/true_node.svg'
     },
