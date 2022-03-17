@@ -65,15 +65,12 @@ function init_obe_setting() {
 // 設定変更時イベント
 function change_obe_setting() {
     const elm = event.target;
-    setting = SettingUtil.getSetting();
     if($(elm).attr('type') === 'checkbox') {
         setting.aspectsetting[$(elm).prop('id')].display = $(elm).prop('checked');
     } else {
         const props = $(elm).prop('id').split('-');
         setting.aspectsetting[props[0]][props[1]][props[2]][props[3]] = $(elm).val();
     }
-
-    SettingUtil.saveSetting(setting);
 }
 
 function click_obe_setting() {

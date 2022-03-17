@@ -142,8 +142,8 @@ SettingUtil.default_setting = {
             angle: 30,
             color: 'soft',
             orb: {
-                major: { tight: 3, loose: 5 },
-                minor: { tight: 1, loose: 3 }
+                major: { tight: 2, loose: 4 },
+                minor: { tight: 1, loose: 2 }
             }
         },
         Decile: {
@@ -152,8 +152,8 @@ SettingUtil.default_setting = {
             angle: 36,
             color: 'soft',
             orb: {
-                major: { tight: 3, loose: 5 },
-                minor: { tight: 1, loose: 3 }
+                major: { tight: 2, loose: 4 },
+                minor: { tight: 1, loose: 2 }
             }
         },
         Novaile: {
@@ -162,8 +162,8 @@ SettingUtil.default_setting = {
             angle: 40,
             color: 'soft',
             orb: {
-                major: { tight: 3, loose: 5 },
-                minor: { tight: 1, loose: 3 }
+                major: { tight: 2, loose: 4 },
+                minor: { tight: 1, loose: 2 }
             }
         },
         Septile: {
@@ -172,8 +172,8 @@ SettingUtil.default_setting = {
             angle: 360 / 7,
             color: 'hard',
             orb: {
-                major: { tight: 3, loose: 5 },
-                minor: { tight: 1, loose: 3 }
+                major: { tight: 2, loose: 4 },
+                minor: { tight: 1, loose: 2 }
             }
         },
         Sextile: {
@@ -252,8 +252,8 @@ SettingUtil.default_setting = {
             angle: 180,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
     }
