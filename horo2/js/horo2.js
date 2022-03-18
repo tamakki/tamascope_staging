@@ -97,34 +97,13 @@ $(function () {
     $(document).on('mousemove', '.aspect__cell', onAspectCell);
     $(document).on('mouseout', '.aspect__cell', outAspectCell);
 
-    bodies = localStorage.getItem('bodies');
-    casps = localStorage.getItem('casps');
-    magnify = localStorage.getItem('magnify')? parseFloat(localStorage.getItem('magnify')): magnify;
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
-    if(bodies) {
-        bodies = JSON.parse(bodies);
-        casps = JSON.parse(casps);
-        draw();
-    }
+
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
 
-    // 自動計算
-    if(bodies && setting){
-        const keys = Object.keys(bodies);
-        if(keys.length < setting.targets.length) {
-            calc();
-        } else {
-            for(let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                if(setting.targets.indexOf(key) === -1) {
-                    calc();
-                    break;
-                }
-            }
-        }
-    }
+    calc();
 });
 
 /** 初期表示用設定 */

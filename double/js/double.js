@@ -135,25 +135,9 @@ $(function () {
     $(document).on('mousemove', '.aspect__cell', onAspectCell);
     $(document).on('mouseout', '.aspect__cell', outAspectCell);
 
-    // 保存データを取得
-    bodies = localStorage.getItem('bodies_double');
-    bodies2 = localStorage.getItem('bodies2_double');
-    casps = localStorage.getItem('casps_double');
-    magnify = localStorage.getItem('magnify_double')? parseFloat(localStorage.getItem('magnify_double')): magnify;
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
-    if(bodies) {
-        bodies = JSON.parse(bodies);
-    }
-    if(bodies2) {
-        bodies2 = JSON.parse(bodies2);
-    }
-    if(casps) {
-        casps = JSON.parse(casps);
-    }
-    if(bodies && bodies2 && casps) {
-        draw();
-    }
+
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect_double') === 'true');
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata_double') === 'true');
     $('#display-opponent').prop('checked', localStorage.getItem('display-opponent_double') === 'true');
