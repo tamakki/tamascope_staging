@@ -147,6 +147,7 @@ button {
 #aspect-table {
     width: fit-content;
     padding: 2em;
+    margin: auto;
 }
 
 .aspect-table {
