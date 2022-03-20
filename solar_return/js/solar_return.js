@@ -183,7 +183,8 @@ function calc() {
                 date: setting['target-date'],
                 bodies: targets,
                 geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
-            }
+            },
+            timeout: 10000
         }).done(function(res) {
             bodies = res;
             localStorage.setItem('bodies', JSON.stringify(bodies));
@@ -1145,7 +1146,7 @@ function GetSunData(target) {
 function GetDateSunHasSpecificAngle(target_angle, date_from) {
     // 初期角度
     var setting = SettingUtil.getSetting();
-    var targetYear = targetYear? targetYear:setting['target-year'];
+    var targetYear = targetYear? targetYear: Date.now.getFullYear();
     date_from = new Date(targetYear,0,1,0,0);
     var start = GetSunData(date_from);
     // 指定角度の補正
