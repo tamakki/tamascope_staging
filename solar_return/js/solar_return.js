@@ -4,6 +4,7 @@ var aspects;
 var magnify = 1.6;
 const settingVersion = 3;
 var setting_open = true;
+let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
@@ -83,7 +84,7 @@ $(function () {
     });
     $('#btn_remove_setting').click(function() {
         if(confirm("設定を初期化します。よろしいですか？")){
-            SettingUtil.removeSetting();
+            setting = new Setting(JSON.stringify(SettingUtil.default_setting));
             initSetting();
             $('#horoscope').empty();
             $('#house-list').empty();
@@ -106,50 +107,16 @@ $(function () {
     $(document).on('mousemove', '.aspect__cell', onAspectCell);
     $(document).on('mouseout', '.aspect__cell', outAspectCell);
 
-    bodies = localStorage.getItem('bodies');
-    casps = localStorage.getItem('casps');
-    magnify = localStorage.getItem('magnify')? parseFloat(localStorage.getItem('magnify')): magnify;
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
-    if(bodies) {
-        bodies = JSON.parse(bodies);
-        casps = JSON.parse(casps);
-        draw();
-    }
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
 
-    // 自動計算
-    const setting = SettingUtil.getSetting();
-    if(!setting.target_date) {
-        var target_date = GetTargetDate();
-        setting['target-date'] = GetDateString(target_date.getUTCFullYear(), target_date.getUTCMonth() + 1, target_date.getUTCDate(), target_date.getUTCHours(), target_date.getUTCMinutes(),0);
-        SettingUtil.saveSetting(setting);
-    }
-    if(bodies && setting){
-        const keys = Object.keys(bodies);
-        if(keys.length < setting.targets.length) {
-            calc();
-        } else {
-            for(let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                if(setting.targets.indexOf(key) === -1) {
-                    calc();
-                    break;
-                }
-            }
-        }
-    }
+    calc();
 });
 
 /** 初期表示用設定 */
 function initSetting() {
-    let setting = SettingUtil.getSetting();
-    if(setting.version !== settingVersion) {
-        SettingUtil.removeSetting();
-        setting = SettingUtil.getSetting();
-    }
-
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
         if(elm) {
@@ -164,7 +131,6 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    const setting = SettingUtil.getSetting();
     setting['birth-date'] = $('#birth-date').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
@@ -184,7 +150,6 @@ function changeSetting() {
     setting['target-year'] = $('#target-year').val();
     var target_date = GetTargetDate(setting['target-year']);
     setting['target-date'] = GetDateString(target_date.getUTCFullYear(), target_date.getUTCMonth() + 1, target_date.getUTCDate(), target_date.getUTCHours(), target_date.getUTCMinutes(),0);
-    SettingUtil.saveSetting(setting);
 }
 
 /** 県選択時イベント */
@@ -202,12 +167,12 @@ function changePrefecture() {
 
 /** 天体計算 */
 function calc() {
-    const setting = SettingUtil.getSetting();
-    const targets = setting.targets;
+    let targets = [];
+    targets = targets.concat(setting.targets);
     const target_date = GetTargetDate();
+    if(targets.indexOf('sun') === -1) targets.push('sun');
+    if(targets.indexOf('moon') === -1) targets.push('moon');
     setting['target-date'] = GetDateString(target_date.getUTCFullYear(), target_date.getUTCMonth() + 1, target_date.getUTCDate(), target_date.getUTCHours(), target_date.getUTCMinutes(),0);
-    SettingUtil.saveSetting(setting);
-    targets.push('sun');
     if(validate(setting)) {
         $.LoadingOverlay('show');
         $.ajax({
@@ -266,7 +231,6 @@ function validate(setting) {
 function draw() {
     changeSetting();
     if(bodies) {
-        const setting = SettingUtil.getSetting();
         // 描画を削除
         $('#horoscope').empty();
 
@@ -642,7 +606,7 @@ function getHouse(setting) {
 function getAspectTable (aspects){
     // 情報をもとにテーブルを作成
     let aspect_table = document.createElement("table");
-    for(let i = 0; i < SettingUtil.getSetting().targets.length; i++) {
+    for(let i = 0; i < setting.targets.length; i++) {
         let colgroup = document.createElement('col');
         colgroup.span = 1;
         aspect_table.append(colgroup);
@@ -682,7 +646,6 @@ function getAspectTable (aspects){
 function makeBodyList() {
     const table = $('#body-table');
     table.empty();
-    const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
         const key = setting.targets[i];
         if(key === 'ASC' || key === 'MC') continue;
@@ -1141,7 +1104,6 @@ function GetDateString(year, month, date, hour, min, time_diff) {
 }
 
 function GetTargetDate(targetYear) {
-    const setting = SettingUtil.getSetting();
     var birthday_sun_angle = GetSunData(setting.getBirthDate()).longitude;
     var targetYear = targetYear? targetYear:setting['target-year'];
     var from_date = new Date(targetYear,0,1,0,0);
@@ -1244,4 +1206,106 @@ function switchSettingOpen() {
         }
     }
     setting_open = !setting_open;
+}
+
+/** 天体設定ボタンクリックイベント */
+$("#open_body_setting").on("click", () => {
+    $("#body_setting__inputs").empty();
+
+    makeSetting();
+    initValue();
+    $("#body_setting").modal();
+});
+
+$("#body_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
+});
+
+/** オーブ設定ボタンクリックイベント */
+$("#open_obe_setting").on("click", () => {
+    $("#aspect_setting__inputs").empty();
+    init_obe_setting();
+    $("#obe_setting").modal();
+});
+
+$("#obe_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
+});
+
+/** 設定保存モーダル */
+$("#show_save_setting").on("click", () => {
+    $("#setting_name").val($("#name").val());
+    $("#save_setting_dialog").modal();
+    $("#setting_name").focus();
+});
+
+$("#btn_save_setting").on("click", () => {
+    $("#setting_name").blur();
+    setTimeout(() => {
+
+        if($("#setting_name").val()) {
+            SettingUtil.saveSetting(setting, $("#setting_name").val());
+            $.modal.close();
+            $("#setting_name").val("");
+        } else {
+            alert("設定名を入力してください");
+        }
+    }, 200);
+});
+
+
+$("#show_load_setting").on("click", () => {
+    const settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings && settings.saved != null && Object.keys(settings.saved).length > 0) {
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+
+    $("#load_setting_dialog").modal();
+    } else {
+        alert("保存された設定がありません");
+    }
+});
+
+$(document).on("click", ".setting_item", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+    let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings.saved[target]) {
+        setting = new Setting(JSON.stringify(settings.saved[target]));
+        $("#name").val(target);
+        initSetting();
+        $.modal.close();
+        calc();
+    }
+});
+$(document).on("click", ".delete_setting", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+
+    if(confirm(target + " を削除してよろしいですか？")) {
+        let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+        delete settings.saved[target];
+        localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+    }
+});
+
+/**
+ * 読み込み用の設定一覧のアイテムを作成する
+ * @param {*} key 
+ */
+function createSettingItem(key) {
+    let div = $("<div>").addClass("setting_item_wrapper");
+    $("<span>").text(key).attr("data-name", key).addClass("setting_item").appendTo(div);
+    $("<button>").text("━").attr("data-name", key).addClass("delete_setting").appendTo(div);
+    return div;
 }
