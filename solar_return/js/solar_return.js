@@ -1148,7 +1148,7 @@ function GetDateSunHasSpecificAngle(target_angle, date_from) {
     var targetYeare = $("#target-year").val();
     date_from = new Date(targetYear,0,1,0,0);
     var start = GetSunData(date_from);
-    // 指定角度の補正
+    // 指定角度の補正git 
     if(target_angle < start.longitude) {
         target_angle += 360;
     }
