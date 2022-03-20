@@ -71,7 +71,7 @@ function initValue() {
         $(section).find('.all').prop('checked',$(section).find('.body').length === $(section).find('.body:checked').length);
     }
     if(event) {
-        document.querySelectorAll(`input[value=${event.target.value}]`).forEach(elm => elm.checked = event.target.checked);
+        document.querySelectorAll(`input[value="${event.target.value}"]`).forEach(elm => elm.checked = event.target.checked);
     }
 
     let targets = [];
@@ -96,7 +96,7 @@ function initValue() {
     Object.entries(SettingUtil.body_list).filter(elm => {
         return elm[1].tag.includes(event.target.value)
     }).forEach(elm => {
-        document.querySelectorAll(`input[value=${elm[0]}]`).forEach(elm => elm.checked = checked);
+        document.querySelectorAll(`input[value="${elm[0]}"]`).forEach(elm => elm.checked = checked);
     });
     changeValue();
 }
@@ -155,7 +155,7 @@ function makeOther() {
 
 /** 架空点のチェックボックスを作る */
 function makeVirtualPoint() {
-  makeInputArea('架空点', 'virtual');
+  makeInputArea('架空点', 'virtualPoint');
 }
 
 /** 現代の人物のチェックボックスを作る */
@@ -563,12 +563,12 @@ SettingUtil.body_list = {
     // 架空天体
     'part of fortune': {
       'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
-      'tag': ['virtual'],
+      'tag': ['virtualPoint'],
       'svg': '../svg/part_of_fortune.svg'
     },
     'vertex': {
       'name': 'ﾊﾞｰﾃｯｸｽ',
-      'tag': ['virtual'],
+      'tag': ['virtualPoint'],
       'svg': '../svg/vertex.svg'
     },
     // 現代の人物
