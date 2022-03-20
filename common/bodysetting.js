@@ -187,3 +187,7 @@ function createSettingItem(key) {
     $("<button>").text("━").attr("data-name", key).addClass("delete_setting").appendTo(div);
     return div;
 }
+
+$(document).on('focus', 'input[type="number"]', () => {
+    event.target.select();
+});
