@@ -1104,9 +1104,9 @@ function GetDateString(year, month, date, hour, min, time_diff) {
     return dateString;
 }
 
-function GetTargetDate(targetYear) {
+function GetTargetDate() {
     var birthday_sun_angle = GetSunData(setting.getBirthDate()).longitude;
-    var targetYear = targetYear? targetYear:setting['target-year'];
+    var targetYeare = $("#target-year").val();
     var from_date = new Date(targetYear,0,1,0,0);
     return GetDateSunHasSpecificAngle(birthday_sun_angle, from_date);
 }
@@ -1145,8 +1145,7 @@ function GetSunData(target) {
  */
 function GetDateSunHasSpecificAngle(target_angle, date_from) {
     // 初期角度
-    var setting = SettingUtil.getSetting();
-    var targetYear = targetYear? targetYear: Date.now.getFullYear();
+    var targetYeare = $("#target-year").val();
     date_from = new Date(targetYear,0,1,0,0);
     var start = GetSunData(date_from);
     // 指定角度の補正
