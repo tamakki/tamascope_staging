@@ -25,6 +25,7 @@
     <script src="../common/CalcAstroBase.js?ver=1.0.1"></script>
     <script src="../common/SabianUtil.js"></script>
     <script src="../common/aspectsetting.js"></script>
+    <script src="../common/common.js?var=1"></script>
 </head>
 
 <body>
@@ -109,7 +110,11 @@
                     </div>
                     <div>
                         <h4>天体にオンマウス</h4>
-                        <label><input id="display-bodydata" type="checkbox">天体情報表示</label><br>
+                        <select id="display-bodydata">
+                            <option value="none">表示なし</option>
+                            <option value="name">天体名</option>
+                            <option value="detail">詳細情報</option>
+                        </select><br>
                         <label><input id="display-aspect" type="checkbox">アスペクト表示</label>
                     </div>
                 </div>
@@ -207,7 +212,7 @@
         <div id="aspect-data"></div>
     </article>
     <script src="../common/bodysetting.js"></script>
-    <script src="./js/horo2.js?ver=8"></script>
+    <script src="./js/horo2.js?ver=9"></script>
 </body>
 
 </html>
