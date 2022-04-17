@@ -137,7 +137,7 @@ $(function () {
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect_double') === 'true');
-    if(typeof(localStorage.getItem('display-bodydata')) !== Boolean) {
+    if(localStorage.getItem('display-bodydata') === 'detail' || localStorage.getItem('display-bodydata') === 'name' || localStorage.getItem('display-bodydata') === 'none') {
         $('#display-bodydata').val(localStorage.getItem('display-bodydata'));
     }
     $('#display-opponent').prop('checked', localStorage.getItem('display-opponent_double') === 'true');

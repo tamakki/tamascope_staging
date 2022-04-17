@@ -95,13 +95,8 @@ $(function () {
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
-
-    if($('#display-bodydata').prop('type') === 'checkbox') {
-        $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
-    } else {        
-        if(typeof(localStorage.getItem('display-bodydata')) !== Boolean) {
-            $('#display-bodydata').val(localStorage.getItem('display-bodydata'));
-        }
+    if(localStorage.getItem('display-bodydata') === 'detail' || localStorage.getItem('display-bodydata') === 'name' || localStorage.getItem('display-bodydata') === 'none') {
+        $('#display-bodydata').val(localStorage.getItem('display-bodydata'));
     }
     calc();
 });
