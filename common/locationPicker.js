@@ -70,19 +70,18 @@ function initAutocomplete(location) {
         return;
       }
 
-      // Create a marker for each place.
-      const icon = {
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25),
-      };
+      // // Create a marker for each place.
+      // const icon = {
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(25, 25),
+      // };
 
       // Create a marker for each place.
       const marker =
         new google.maps.Marker({
           map,
-          icon,
           title: place.name,
           position: place.geometry.location,
         });
