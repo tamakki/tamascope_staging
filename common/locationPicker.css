@@ -118,6 +118,13 @@
   flex: 1;
 }
 
+.map-head {
+  position: absolute;
+  z-index: 10;
+  top: 1em;
+  left: 1em;
+}
+
 .map_bottom {
   position: relative;
   top: -6em;
