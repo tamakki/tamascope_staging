@@ -249,6 +249,8 @@ footer {
     max-width: calc(100% - 2em);
     text-align: left;
     vertical-align: top;
+    width: fit-content;
+    padding: 2em;
 }
 
 .body-class th, .body-class td {
