@@ -167,10 +167,14 @@
 #house-list {
     padding: 0;
     width: fit-content;
+    margin: 0 2em;
 }
 #house-list li {
     list-style-type: none;
     border-bottom: 1px solid #000;
+    display: flex;
+    width: 100%;
+    align-items: center;
 }
 
 #house-list li span {
@@ -197,6 +201,16 @@
 .house_time {
     display: inline-block;
     width: 4em;
+}
+
+.return_date {
+    display: inline-block;
+    width: 10.5em;
+}
+
+.sabian {
+    display: inline-block;
+    flex: 1;
 }
 
 footer {
