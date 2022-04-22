@@ -94,4 +94,5 @@ $(document).on('click', '#pickLocation', () => {
   document.getElementById('latitude-min').value = Math.floor((center.latitude % 1) * 60);
   changeSetting();
   $.modal.close();
+  calc();
 });
