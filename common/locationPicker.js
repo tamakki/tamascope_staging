@@ -8,7 +8,7 @@ window.GetMap = () => {
       map: map,
       businessSuggestions: true
     });
-    manager.attachAutosuggest('#keyword', '#searchBoxContainer', suggestSelected);
+    manager.attachAutosuggest('#locationSearchKeyword', '#searchBoxContainer', suggestSelected);
 
     // Search
     searchManager = new Microsoft.Maps.Search.SearchManager(map);
@@ -35,11 +35,13 @@ const searchSuccess = (r) => {
     const locs = [];
     r.results.forEach((result, i) => {
       const pin = new Microsoft.Maps.Pushpin(result.location, {
-          text: i + ''
+          icon: '../svg/pin.svg',
+          ancor: new Microsoft.Maps.Point(16, 32)
       });
       pins.push(pin);
       Microsoft.Maps.Events.addHandler(pin, 'click', () => {
         map.setView({center: result.location});
+        onChangeLocation(result.location);
       });
       locs.push(result.location);
     });
@@ -57,7 +59,7 @@ const searchFail = (e) => {
   alert('該当する住所がありませんでした');
 }
 const locationSearch = () => {
-  const query = document.getElementById('keyword').value;
+  const query = document.getElementById('locationSearchKeyword').value;
   const searchRequest = {
     where: query,
     callback: searchSuccess,
@@ -69,8 +71,8 @@ const locationSearch = () => {
 const onChangeLocation = (location) => {
   const lat = location.latitude;
   const lon = location.longitude;
-  document.getElementById('locationPicker-lat').value = Math.floor(lat) + '°' + Math.floor((lat - Math.floor(lat)) * 60) + "'";
-  document.getElementById('locationPicker-lng').value = Math.floor(lon) + '°' + Math.floor((lon - Math.floor(lon)) * 60) + "'";
+  document.getElementById('locationPicker-lat').value = Math.floor(lat) + '°' + ('0' + Math.floor((lat - Math.floor(lat)) * 60)).slice(-2) + "'";
+  document.getElementById('locationPicker-lng').value = Math.floor(lon) + '°' + ('0' + Math.floor((lon - Math.floor(lon)) * 60)).slice(-2) + "'";
   map.setView({bounds: result.bestView});
 }
 
@@ -83,7 +85,10 @@ $(document).on('click', '#openLocationPicker', () => {
   }
   map.setView({center: location});
   onChangeLocation(location);
-  $('#locationPicker').modal();
+  $('#locationPicker').modal({
+    escapeClose: false,
+    clickClose: false,
+  });
 });
 
 $(document).on('click', '#pickLocation', () => {
