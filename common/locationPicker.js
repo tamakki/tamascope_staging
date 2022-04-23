@@ -94,9 +94,9 @@ $(document).on('click', '#openLocationPicker', () => {
 $(document).on('click', '#pickLocation', () => {
   const center = map.getCenter();
   document.getElementById('longitude-deg').value = Math.floor(center.longitude);
-  document.getElementById('longitude-min').value = Math.floor((center.longitude % 1) * 60);
+  document.getElementById('longitude-min').value = ('0' + Math.floor((center.longitude % 1) * 60)).slice(-2)
   document.getElementById('latitude-deg').value = Math.floor(center.latitude);
-  document.getElementById('latitude-min').value = Math.floor((center.latitude % 1) * 60);
+  document.getElementById('latitude-min').value = ('0' + Math.floor((center.latitude % 1) * 60)).slice(-2);
   changeSetting();
   $.modal.close();
   calc();
