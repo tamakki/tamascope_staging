@@ -85,6 +85,7 @@ $(document).on('click', '#openLocationPicker', () => {
   }
   map.setView({center: location});
   onChangeLocation(location);
+  $('#locationSearchKeyword').val('');
   $('#locationPicker').modal({
     escapeClose: false,
     clickClose: false,
