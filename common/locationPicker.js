@@ -84,6 +84,9 @@ $(document).on('click', '#openLocationPicker', () => {
     latitude: lat,
     longitude: lon,
   }
+  if(!map) {
+    alert('現在地図検索機能が使えません');
+  }
   map.setView({center: location});
   onChangeLocation(location);
   $('#locationSearchKeyword').val('');
