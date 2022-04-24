@@ -48,6 +48,7 @@ const searchSuccess = (r) => {
     map.entities.push(pins);
     if(r.results.length === 1) {
       map.setView({bounds: r.results[0].bestView})
+      onChangeLocation(r.results[0].location);
     } else {
       map.setView({bounds: Microsoft.Maps.LocationRect.fromLocations(locs), padding: 30});
     }
