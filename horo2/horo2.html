@@ -161,6 +161,9 @@
             <button class="btn_share" onclick="test()">Share</button>
             <div id="test"></div>
             <script>
+                if(!navigator.share) {
+                    $('.btn_share').remove();
+                }
                 async function test() {
                     let svg = document.getElementById("horoscope").children[0];
                     let casps = document.getElementById("house-list");
