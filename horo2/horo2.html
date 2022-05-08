@@ -169,9 +169,15 @@
                 }
                 async function doShare() {
                     let svg = document.getElementById("horoscope").children[0];
-                    if(svg ) {
+                    let casps = document.getElementById("house-list");
+                    let bodies = document.getElementById("body-data-wrapper");
+                    let aspects = document.getElementsByClassName("aspect-table");
+                    if(svg && casps && bodies && aspects) {
                         let files = [];
                         files.push(new File([await CommonUtil.Svg2Blob(svg)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(casps)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(bodies)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(aspects)], "image.png", {type: "image/png"}));
                         CommonUtil.Share("小惑星沢山ホロスコープ\n\n#たまスコープ\n#ホロスコープ\n" + "https://tamakki.github.io/website/horo_index.html", "https://tamakki.github.io/website/horo_index.html", files);
                     } else {
                         alert('共有に失敗しました');
