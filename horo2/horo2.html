@@ -158,7 +158,7 @@
                 <div id="div2"></div>
             </div>
             
-            <button class="btn_share" onclick="test()">Share</button>
+            <button class="btn_share" onclick="$.LoadingOverlay('show');test()">Share</button>
             <div id="test"></div>
             <script>
                 if(!navigator.share) {
@@ -177,6 +177,7 @@
                         files.push(new File([await CommonUtil.Element2Blob(aspects)], "image.png", {type: "image/png"}));
                         CommonUtil.Share("小惑星沢山ホロスコープ\n\n#たまスコープ\n#ホロスコープ\n" + "https://tamakki.github.io/website/horo_index.html", "https://tamakki.github.io/website/horo_index.html", files);
                     }
+                    $.LoadingOverlay('hide');
                 }
             </script>
             <script src="../common/dom-to-image.js" async></script>
