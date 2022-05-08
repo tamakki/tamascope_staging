@@ -158,13 +158,16 @@
                 <div id="div2"></div>
             </div>
             
-            <button class="btn_share" onclick="$.LoadingOverlay('show');test()">Share</button>
-            <div id="test"></div>
+            <button class="btn_share" onclick="share()">Share</button>
             <script>
                 if(!navigator.share) {
                     $('.btn_share').remove();
                 }
-                async function test() {
+                function share() {
+                    $.LoadingOverlay('show');
+                    doShare();
+                }
+                async function doShare() {
                     let svg = document.getElementById("horoscope").children[0];
                     let casps = document.getElementById("house-list");
                     let bodies = document.getElementById("body-data-wrapper");
