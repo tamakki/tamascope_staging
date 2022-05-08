@@ -69,8 +69,9 @@
 }
 
 .aspect-table {
-    width: 100%;
+    width: fit-content;
     padding: 1em;
+    margin: auto;
     text-align: center;
     page-break-inside: avoid;
 }
