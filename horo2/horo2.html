@@ -171,7 +171,7 @@
                     let svg = document.getElementById("horoscope").children[0];
                     let casps = document.getElementById("house-list");
                     let bodies = document.getElementById("body-data-wrapper");
-                    let aspects = document.getElementById("aspect-table");
+                    let aspects = document.getElementsByClassName("aspect-table");
                     if(svg && casps && bodies && aspects) {
                         let files = [];
                         files.push(new File([await CommonUtil.Svg2Blob(svg)], "image.png", {type: "image/png"}));
