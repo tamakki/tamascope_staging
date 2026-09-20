@@ -8,21 +8,6 @@ let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
-    $.datepicker.setDefaults($.datepicker.regional["ja"]);
-
-    // 誕生時間の選択肢
-    for (let i = 0; i < 24; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#birth-hour').append(option);
-    }
-    for (let i = 0; i < 60; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#birth-min').append(option);
-    }
     for (let i = 12; i > -12; i--) {
         let option = $('<option>');
         option.val(i);
@@ -44,7 +29,18 @@ $(function () {
 
     initSetting();
 
-    $('#birth-hour').change(changeSetting);
+    $('#birth-date').on('input',() => {
+        if($('#birth-date').val().length == 8) {
+            $('#birth-hour').focus();
+        }
+    });
+    $('#birth-date').change(changeSetting);
+    $('#birth-hour').on('input', () => {
+        if($('#birth-hour'.val().length == 2)) {
+            $('#birth-min').focus();
+        }
+    });
+    $('#birth-hour').change(changeSetting)
     $('#birth-min').change(changeSetting);
     $('#longitude-deg').change(changeSetting);
     $('#longitude-min').change(changeSetting);
@@ -186,7 +182,7 @@ function calc() {
 
 function validate(setting) {
     if (setting.getBirthDate().toString() === "Invalid Date") {
-        alert('日付の入力形式に誤りがあります。\n 2020/01/01　のように入力してください。');
+        alert('日付の入力に誤りがあります。\n 20200101　のように入力してください。');
         return false;
     }
 
@@ -1060,8 +1056,8 @@ function hideGardian() {
  */
 function setNow() {
     var now = new Date();
-    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
-    $('#birth-date').datepicker('setDate', date);
+    var date = now.getFullYear() + ("0" + (now.getMonth() + 1)).slice(-2) + ("0" + now.getDate()).slice(-2);
+    $('#birth-date').val(date);
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
     changeSetting();

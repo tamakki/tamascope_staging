@@ -5,8 +5,19 @@
 }
 
 #birth-date {
-  width: 7em;
+  width: 5em;
 }
+#birth-hour {
+  width: 2em;
+}
+#birth-min {
+  width: 2em;
+}
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} 
 
 .deg {
   text-align: right;
@@ -468,4 +479,8 @@ footer {
   .category {
     width: 100%;
   }
+}
+
+input:invalid {
+  background-color: lightpink;
 }

@@ -22,7 +22,6 @@
       script
       src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
     ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link
@@ -82,11 +81,9 @@
           <div id="setting">
             <div class="birth-datetime">
               <h3>誕生日時</h3>
-              <input id="birth-date" placeholder="誕生日" />
-              <select id="birth-hour"></select
-              >:
-              <select id="birth-min"></select
-              ><br />
+              <input type="text" id="birth-date" placeholder="誕生日" inputmode="numeric" pattern="[0-9]{8}"/>
+              <input type="number" id="birth-hour" min="0" max="24" inputmode="numeric">:
+              <input type="number" id="birth-min" min="0" max="60" inputmode="numeric"><br />
               <button onclick="setNow()">現在日時</button>
             </div>
             <div class="birth-place">

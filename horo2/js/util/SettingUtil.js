@@ -35,7 +35,7 @@ SettingUtil.removeSetting = function () {
  * @param {Date} date
  */
 SettingUtil.formatDate = function (date) {
-    return date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + (date.getDate())).slice(-2);
+    return date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
 }
 
 /**
@@ -62,10 +62,13 @@ Setting.prototype.getBirthDate = function () {
         timeZone += ('0' + Math.abs(this['time-diff'])).slice(-2) + ':00';
     }
     this['birth-date'] = this['birth-date'].trim();
+    if(!isValidDate(this['birth-date'])) {
+        return "Invalid Date"
+    }
     const dateString =
-        ('0000' + this['birth-date'].split('/')[0]).slice(-4) + '-'
-        + ('0' + this['birth-date'].split('/')[1]).slice(-2) + '-'
-        + ('0' + this['birth-date'].split('/')[2]).slice(-2)
+        ('0000' + this['birth-date'].slice(0,4)).slice(-4) + '-'
+        + ('0' + this['birth-date'].slice(4,6)).slice(-2) + '-'
+        + ('0' + this['birth-date'].slice(6,8)).slice(-2)
         + 'T'
         + ('0' + this['birth-hour']).slice(-2) + ':'
         + ('0' + this['birth-min']).slice(-2) + ':00.000' + timeZone;
@@ -116,4 +119,19 @@ SettingUtil.default_setting = {
         'main'
     ],
     'aspectsetting': aspectSettingDefault,
+}
+
+const isValidDate = function(dateString) {
+    console.log(dateString);
+    const year = dateString.slice(0,4);
+    const month = dateString.slice(4,6);
+    const day = dateString.slice(6,8);
+    // 月は0始まり（0=1月, 11=12月）なので -1 は不要なパターン（値の直渡し）
+    const d = new Date(year, month - 1, day);
+    console.log(d);
+    return (
+        d.getFullYear() == year &&
+        d.getMonth() == month - 1 &&
+        d.getDate() == day
+    );
 }
