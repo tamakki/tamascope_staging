@@ -9,12 +9,6 @@ let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 // 初期設定
 $(function () {
     $.datepicker.setDefaults($.datepicker.regional["ja"]);
-    $('#birth-date').datepicker({
-        changeYear: true, //年を表示
-        changeMonth: true, //月を選択
-        yearRange: '-100:+100',
-        changeDate: changeSetting
-    }).on('change', changeSetting);
 
     // 誕生時間の選択肢
     for (let i = 0; i < 24; i++) {
