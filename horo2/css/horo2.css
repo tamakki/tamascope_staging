@@ -8,16 +8,16 @@
   width: 4em;
 }
 #birth-month {
-  width: 2em;
+  width: 2.5em;
 }
 #birth-day {
-  width: 2em;
+  width: 2.5em;
 }
 #birth-hour {
-  width: 2em;
+  width: 2.5em;
 }
 #birth-min {
-  width: 2em;
+  width: 2.5em;
 }
 input[type="number"]::-webkit-outer-spin-button, 
 input[type="number"]::-webkit-inner-spin-button { 
