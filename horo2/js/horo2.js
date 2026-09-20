@@ -32,18 +32,14 @@ $(function () {
     $('#birth-date').on('focus', () => {
         $('#birth-date').val('');
     });
-    $('#birth-date').on('input',() => {
-        if($('#birth-date').val().length == 8) {
-            $('#birth-hour').focus();
-        }
-    });
     $('#birth-date').change(changeSetting);
-    $('#birth-hour').on('input', () => {
-        if($('#birth-hour'.val().length == 2)) {
-            $('#birth-min').focus();
-        }
+    $('#birth-hour').on('focus', () => {
+        $('#birth-hour').val('');
     });
-    $('#birth-hour').change(changeSetting)
+    $('#birth-hour').change(changeSetting);
+    $('#birth-min').on('focus', () => {
+        $('#birth-min').val('');
+    });
     $('#birth-min').change(changeSetting);
     $('#longitude-deg').change(changeSetting);
     $('#longitude-min').change(changeSetting);
