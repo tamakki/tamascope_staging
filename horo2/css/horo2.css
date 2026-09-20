@@ -5,13 +5,13 @@
 }
 
 #birth-date {
-  width: 5em;
+  width: 6em;
 }
 #birth-hour {
-  width: 2em;
+  width: 3em;
 }
 #birth-min {
-  width: 2em;
+  width: 4em;
 }
 input[type="number"]::-webkit-outer-spin-button, 
 input[type="number"]::-webkit-inner-spin-button { 

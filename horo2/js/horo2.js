@@ -29,6 +29,9 @@ $(function () {
 
     initSetting();
 
+    $('#birth-date').on('focus', () => {
+        $('#birth-date').val('');
+    });
     $('#birth-date').on('input',() => {
         if($('#birth-date').val().length == 8) {
             $('#birth-hour').focus();
