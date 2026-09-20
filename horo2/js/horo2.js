@@ -29,18 +29,25 @@ $(function () {
 
     initSetting();
 
-    $('#birth-date').on('focus', () => {
-        $('#birth-date').val('');
-    });
-    $('#birth-date').change(changeSetting);
-    $('#birth-hour').on('focus', () => {
-        $('#birth-hour').val('');
-    });
+    $('#birth-year').on('focus', () => { $('#birth-year').val('');});
+    $('#birth-year').on('input',() => {if(event.target.value.length == 4) $('#birth-month').focus();});
+    $('#birth-year').change(changeSetting);
+
+    $('#birth-month').on('focus', () => {$('#birth-month').val('');});
+    $('#birth-month').on('input',() => {if(event.target.value.length == 2) $('#birth-day').focus();});
+    $('#birth-month').change(changeSetting);
+
+    $('#birth-day').on('focus', () => {$('#birth-day').val('');});
+    $('#birth-day').on('input',() => { if(event.target.value.length == 2) $('#birth-hour').focus();});
+    $('#birth-day').change(changeSetting);
+
+    $('#birth-hour').on('focus', () => {$('#birth-hour').val('');});
+    $('#birth-hour').on('input',() => {if(event.target.value.length == 2) $('#birth-min').focus();});
     $('#birth-hour').change(changeSetting);
-    $('#birth-min').on('focus', () => {
-        $('#birth-min').val('');
-    });
+
+    $('#birth-min').on('focus', () => {$('#birth-min').val('');});
     $('#birth-min').change(changeSetting);
+
     $('#longitude-deg').change(changeSetting);
     $('#longitude-min').change(changeSetting);
     $('#latitude-deg').change(changeSetting);
@@ -114,7 +121,9 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    setting['birth-date'] = $('#birth-date').val();
+    setting['birth-year'] = $('#birth-year').val();
+    setting['birth-month'] = $('#birth-month').val();
+    setting['birth-day'] = $('#birth-day').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
     setting['longitude-deg'] = $('#longitude-deg').val();
@@ -1055,8 +1064,9 @@ function hideGardian() {
  */
 function setNow() {
     var now = new Date();
-    var date = now.getFullYear() + ("0" + (now.getMonth() + 1)).slice(-2) + ("0" + now.getDate()).slice(-2);
-    $('#birth-date').val(date);
+    $('#birth-year').val(now.getFullYear());
+    $('#birth-month').val(now.getMonth() - 1);
+    $('#birth-day').val(now.getDate());
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
     changeSetting();

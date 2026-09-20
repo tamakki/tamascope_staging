@@ -81,7 +81,9 @@
           <div id="setting">
             <div class="birth-datetime">
               <h3>誕生日時</h3>
-              <input type="text" id="birth-date" placeholder="誕生日" inputmode="numeric" pattern="[0-9]{8}"/>
+              <input type="number" id="birth-year" placeholder="1987" inputmode="numeric" pattern="[0-9]{4}"/>年
+              <input type="number" id="birth-month" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="12"/>月
+              <input type="number" id="birth-day" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="31"/>日<br>
               <input type="number" id="birth-hour" min="0" max="24" inputmode="numeric">:
               <input type="number" id="birth-min" min="0" max="60" inputmode="numeric"><br />
               <button onclick="setNow()">現在日時</button>
