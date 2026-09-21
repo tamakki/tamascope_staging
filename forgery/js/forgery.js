@@ -1,6 +1,6 @@
 var aspects;
 var magnify = 1.6;
-const settingVersion = 3;
+const settingversion = 4;
 let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定

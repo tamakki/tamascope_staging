@@ -128,7 +128,7 @@ function reverse() {
     now.setHours(time[0]);
     now.setMinutes(time[1]);
     now = new Date(now.getTime() - play_diff);
-    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
+    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (('0' + (now.getMonth() + 1)).slice(-2))).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
     document.getElementById("birthtime").value= ('0' + now.getHours()).slice(-2) + ':' + ("0" + now.getMinutes()).slice(-2);
     calcHoro();
 }
@@ -154,7 +154,7 @@ function advance() {
     now.setHours(time[0]);
     now.setMinutes(time[1]);
     now = new Date(now.getTime() + play_diff);
-    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
+    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (('0' + (now.getMonth() + 1)).slice(-2))).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
     document.getElementById("birthtime").value= ('0' + now.getHours()).slice(-2) + ':' + ("0" + now.getMinutes()).slice(-2);
     calcHoro();
 }
@@ -176,7 +176,7 @@ function play() {
  */
 function setNow() {
     var now = new Date();
-    var date = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
+    var date = now.getFullYear() + "-" + ("0" + (('0' + (now.getMonth() + 1)).slice(-2))).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
     var time = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
     document.getElementById("birthday").value = date;
     document.getElementById("birthtime").value = time;

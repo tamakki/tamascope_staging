@@ -2,7 +2,7 @@ var bodies;
 var casps;
 var aspects;
 var magnify = 1.6;
-const settingVersion = 3;
+const settingversion = 4;
 var setting_open = true;
 let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
@@ -190,7 +190,7 @@ function calc() {
 
 function validate(setting) {
     if (setting.getBirthDate().toString() === "Invalid Date") {
-        alert('日付の入力に誤りがあります。\n 20200101　のように入力してください。');
+        alert('日付の入力に誤りがあります。');
         return false;
     }
 
@@ -1065,8 +1065,8 @@ function hideGardian() {
 function setNow() {
     var now = new Date();
     $('#birth-year').val(now.getFullYear());
-    $('#birth-month').val(now.getMonth() - 1);
-    $('#birth-day').val(now.getDate());
+    $('#birth-month').val(('0' + (now.getMonth() + 1)).slice(-2));
+    $('#birth-day').val(('0' + now.getDate()).slice(-2));
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
     changeSetting();
